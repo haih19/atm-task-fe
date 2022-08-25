@@ -1,0 +1,19 @@
+.slider-layout {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 50px;
+  .add-container {
+    width: inherit;
+    display: flex;
+    gap: 20px;
+  }
+  .logout-container {
+    width: inherit;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}

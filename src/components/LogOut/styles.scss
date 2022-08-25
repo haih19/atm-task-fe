@@ -1,0 +1,14 @@
+.current-user {
+   display: flex;
+   gap: 20px;
+}
+.logout-icon {
+   margin-top: 6px;
+   button {
+      background-color: inherit;
+      border: none;
+      span {
+         font-size: 26px;
+      }
+   }
+}

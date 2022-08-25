@@ -1,6 +1,6 @@
 import { RegisterForm } from '../../../modules/auth/register-form';
 
-export const RegisterLayout = () => {
+export const RegisterPage = () => {
   return (
     <div>
       <RegisterForm />

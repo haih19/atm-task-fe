@@ -1,59 +1,97 @@
-import { Form, Input, Checkbox, Button, Row, Col, Typography } from 'antd';
-import './styles.scss';
+import { Form, Input, Button, Typography } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./styles.scss";
 
 const { Title } = Typography;
 
 export const RegisterForm = () => {
-  return (
-    <div className="register-container">
-      <Title level={3}>Sign Up</Title>
-      <Form
-        style={{ justifyContent: 'center' }}
-        name="normal_login"
-        className="register-form"
-        initialValues={{
-          remember: true,
-        }}
-      >
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Username!',
-            },
-          ]}
-        >
-          <Input placeholder="Email" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Password!',
-            },
-          ]}
-        >
-          <Input type="password" placeholder="Password" />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+   const navigate = useNavigate();
 
-          <a className="register-form-forgot" href="">
-            Forgot password
-          </a>
-        </Form.Item>
+   const onFinish = (value: { email: string; password: string; confirm: string }) => {
+      try {
+         axios
+            .post("http://localhost:5001/api/v1/auth/register", value)
+            .then((response) => {
+               localStorage.setItem("registerToken", response.data.PRIVATE_TOKEN);
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="register-form-button">
-            Sign Up
-          </Button>
-          Or <a href="">Login now!</a>
-        </Form.Item>
-      </Form>
-    </div>
-  );
+               response.data.registered
+                  ? navigate("/login")
+                  : alert("Email already existed");
+            });
+      } catch (e) {}
+   };
+
+   const onFinishFailed = (errorInfo: any) => {
+      console.log("Failed:", errorInfo);
+   };
+
+   return (
+      <div className="register-container">
+         <Form
+            style={{ justifyContent: "center" }}
+            name="normal_register"
+            className="register-form"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            initialValues={{
+               remember: true,
+            }}>
+            <Title className="register-title" level={3}>
+               Sign Up
+            </Title>
+            <Form.Item
+               name="email"
+               rules={[
+                  {
+                     // type: 'email',
+                     required: true,
+                     message: "Please input your User email!",
+                  },
+               ]}>
+               <Input placeholder="Email" />
+            </Form.Item>
+            <Form.Item
+               name="password"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your password!",
+                  },
+               ]}
+               hasFeedback>
+               <Input.Password placeholder="password" />
+            </Form.Item>
+            <Form.Item
+               name="confirm"
+               dependencies={["password"]}
+               hasFeedback
+               rules={[
+                  {
+                     required: true,
+                     message: "Please confirm your password!",
+                  },
+                  ({ getFieldValue }) => ({
+                     validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                           return Promise.resolve();
+                        }
+                        return Promise.reject(
+                           new Error("The two passwords that you entered do not match!")
+                        );
+                     },
+                  }),
+               ]}>
+               <Input.Password placeholder="confirm password" />
+            </Form.Item>
+            <Form.Item>
+               <Button type="primary" htmlType="submit" className="register-form-button">
+                  Sign Up
+               </Button>
+               Or <Link to="/login">Login now!</Link>
+            </Form.Item>
+         </Form>
+      </div>
+   );
 };

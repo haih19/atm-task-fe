@@ -1,11 +1,10 @@
 import "./App.css";
 import { useRoutes } from "react-router-dom";
-
-import { authRoute } from "./routes/routes.routes";
+import { routes } from "./routes/routes.routes";
 
 function App() {
-  const element = useRoutes(authRoute);
-  return <div className="App">{element}</div>;
+   const element = useRoutes(routes);
+   return <div className="App">{element}</div>;
 }
 
 export default App;
