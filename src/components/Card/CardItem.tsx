@@ -1,8 +1,9 @@
 import { Typography, Image, Button } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./styles.scss";
-
+import "./responsive.styles.scss";
+import { ReloadOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 interface IAtmData {
@@ -18,6 +19,28 @@ export const CardItem = () => {
    const [loading, setLoading] = useState(false);
    const [atmData, setAtmData] = useState<IAtmData[]>([]);
 
+   useEffect(() => {
+      fetchAtms();
+   }, []);
+
+   const reLoad = () => {
+      fetchAtms();
+   };
+
+   const dragItem = useRef<any>(null);
+   const dragOverItem = useRef<any>(null);
+
+   const handleSort = () => {
+      let atmDataCopy = [...atmData];
+      const draggedItemContent = atmDataCopy.splice(dragItem.current, 1)[0];
+      atmDataCopy.splice(dragOverItem.current, 0, draggedItemContent);
+
+      dragItem.current = null;
+      dragOverItem.current = null;
+
+      setAtmData(atmDataCopy);
+   };
+
    const imgSrc =
       "https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg";
 
@@ -30,8 +53,7 @@ export const CardItem = () => {
                Authorization: accessToken as string,
             },
          });
-         console.log(response.data);
-
+         // console.log(response.data);
          setAtmData(response.data.atm);
       } catch (err) {}
    };
@@ -41,33 +63,37 @@ export const CardItem = () => {
          atmId: atm.id,
       };
       try {
-         const response = axios.post(
-            `ttp://localhost:5001/api/v1/?`,
-            {
-               params,
-            },
+         const response = await axios.delete(
+            `http://localhost:5001/api/v1/atms/${atm.id}`,
+
             {
                headers: {
                   Authorization: accessToken as string,
                },
             }
          );
-         console.log(response);
+         reLoad();
+
+         setLoading(!loading);
       } catch (error) {
          console.log(error);
       }
    };
-   useEffect(() => {
-      fetchAtms();
-   }, []);
 
    return (
       <div className="card-list">
          {atmData &&
             atmData.length > 0 &&
-            atmData.map((atm, index) => {
+            atmData.slice(0, 3).map((atm, index) => {
                return (
-                  <div key={index} className="card-item">
+                  <div
+                     key={index}
+                     draggable
+                     onDragStart={(e) => (dragItem.current = index)}
+                     onDragEnter={(e) => (dragOverItem.current = index)}
+                     onDragEnd={handleSort}
+                     onDragOver={(e) => e.preventDefault()}
+                     className="card-item">
                      <div className="card-img">
                         <Image src={imgSrc} />
                      </div>

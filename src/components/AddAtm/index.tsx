@@ -34,7 +34,7 @@ export const AddAtm = () => {
                },
             }
          );
-         console.log("response", response);
+         setAtmInput("");
       } catch (err) {
          console.log(err);
       }

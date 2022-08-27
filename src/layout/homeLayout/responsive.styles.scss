@@ -1,0 +1,118 @@
+//pc : width >= 1600px
+@media only screen and (min-width: 100em) {
+   .home-container {
+      width: 100%;
+      .home-content {
+         padding: 0 50px;
+         .main-content {
+            width: 100%;
+         }
+      }
+   }
+}
+
+//small pc 1300 - 1599
+@media only screen and (min-width: 81.25em) and (max-width: 99.9375em) {
+   .home-container {
+      width: 100%;
+      .home-content {
+         display: flex;
+         flex-direction: column;
+         width: inherit;
+         .main-content {
+            display: flex;
+            width: inherit;
+            flex-direction: row;
+            .card-container {
+               // padding-left: 60px;
+            }
+            .list-container {
+            }
+         }
+         .cmt-container {
+            width: 100%;
+            // display: flex;
+            // justify-content: flex-start;
+         }
+      }
+   }
+}
+//tablet: width >= 740px and width < 1299
+@media only screen and (min-width: 46.25em) and (max-width: 81.1875em) {
+   .home-container {
+      width: 100%;
+      .home-content {
+         padding: 0 50px;
+         display: flex;
+         flex-direction: column;
+         .main-content {
+            display: flex;
+            width: inherit;
+            flex-direction: column;
+            .card-container {
+               // padding-left: 60px;
+            }
+            .list-container {
+            }
+         }
+         .cmt-container {
+            // display: flex;
+            // justify-content: flex-start;
+         }
+      }
+   }
+}
+
+//modile: 600px <= width < 739px
+@media only screen and (min-width: 37.5em) and (max-width: 46.1875em) {
+   .home-container {
+      width: 100%;
+      .home-content {
+         padding: 0 30px;
+         display: flex;
+         flex-direction: column;
+         width: inherit;
+         .main-content {
+            display: flex;
+            width: inherit;
+            flex-direction: column;
+            .card-container {
+               // padding-left: 60px;
+            }
+            .list-container {
+            }
+         }
+         .cmt-container {
+            // display: flex;
+            // justify-content: flex-start;
+         }
+      }
+   }
+}
+
+//small mobile: width < 599px
+@media only screen and (max-width: 37.4375em) {
+   .home-container {
+      width: 100%;
+      .home-content {
+         padding: 0 8px;
+         display: flex;
+         flex-direction: column;
+         width: inherit;
+         .main-content {
+            display: flex;
+            width: inherit;
+            flex-direction: column;
+            .card-container {
+               // padding-left: 60px;
+            }
+            .list-container {
+            }
+         }
+         .cmt-container {
+            // display: flex;
+            // justify-content: flex-start;
+         }
+      }
+   }
+}

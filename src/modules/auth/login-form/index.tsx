@@ -2,6 +2,7 @@ import { Form, Input, Checkbox, Button, Typography } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.scss";
+import "./responsive.styles.scss";
 
 const { Title } = Typography;
 

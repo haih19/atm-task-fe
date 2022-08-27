@@ -1,0 +1,89 @@
+//pc : width >= 1600px
+@media only screen and (min-width: 100em) {
+   .card-list {
+      display: flex;
+      gap: 50px;
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+      .card-item {
+         width: 300px;
+         .card-img {
+            img {
+            }
+         }
+         .card-content {
+            .card-title {
+            }
+            .card-text {
+            }
+            button:hover {
+            }
+         }
+      }
+   }
+}
+
+//small pc 1024 - 1599
+@media only screen and (min-width: 64em) and (max-width: 99.9375em) {
+   .card-list {
+      display: flex;
+      justify-content: center;
+   }
+}
+
+//tablet: width >= 740px and width < 1023px
+@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+   .card-list {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      .card-item {
+         .card-img {
+            img {
+            }
+         }
+         .card-content {
+            .card-title {
+            }
+            .card-text {
+            }
+            button:hover {
+            }
+         }
+      }
+      .card-item:hover {
+      }
+   }
+}
+
+//modile: 600px <= width < 739px
+@media only screen and (min-width: 37.5em) and (max-width: 46.1875em) {
+}
+
+//small mobile: width < 599px
+@media only screen and (max-width: 37.4375em) {
+   .card-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      .card-item {
+         width: 70%;
+         .card-img {
+            img {
+            }
+         }
+         .card-content {
+            .card-title {
+            }
+            .card-text {
+            }
+            button:hover {
+            }
+         }
+      }
+      .card-item:hover {
+      }
+   }
+}

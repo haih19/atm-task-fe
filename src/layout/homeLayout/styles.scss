@@ -3,19 +3,24 @@
    .home-content {
       margin-top: 24px;
       width: inherit;
-      padding: 0 200px;
+      padding: 0 50px;
       display: flex;
       flex-direction: column;
       .main-content {
          display: flex;
          width: inherit;
+         gap: 50px;
+         flex-direction: row;
+         // height: 450px;
          .card-container {
             flex: 2;
-            // padding-left: 60px;
+            height: inherit;
          }
          .list-container {
+            box-shadow: 0 2px 8px 5px rgba(0, 0, 0, 0.3);
             flex: 1;
             border: 1px solid #ccc;
+            height: inherit;
          }
       }
       .cmt-container {

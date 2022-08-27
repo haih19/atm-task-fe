@@ -1,8 +1,10 @@
 import { RightCircleOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Tooltip } from "antd";
+import { Typography, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import "./styles.scss";
+
+const { Title } = Typography;
 
 interface IAtmData {
    client: string;
@@ -22,20 +24,12 @@ export const LogOut = () => {
    };
 
    return (
-      <>
-         <div className="current-user">
-            <div className="user-name">Jadon Smith</div>
-            <div className="user-icon">
-               <Avatar icon={<UserOutlined />} />
-            </div>
-         </div>
-         <div className="logout-icon">
-            <button onClick={handleOnclickLogout}>
-               <Tooltip title="Log Out">
-                  <RightCircleOutlined />
-               </Tooltip>
-            </button>
-         </div>
-      </>
+      <div className="logout-icon">
+         <button onClick={handleOnclickLogout}>
+            <Tooltip title="Log Out">
+               <RightCircleOutlined />
+            </Tooltip>
+         </button>
+      </div>
    );
 };

@@ -4,6 +4,7 @@ import { ItemList } from "../../components/ItemList/ItemList";
 import { SliderLayout } from "../sliderLayout";
 
 import "./styles.scss";
+import "./responsive.styles.scss";
 
 export const HomeLayout = () => {
    return (
@@ -13,6 +14,7 @@ export const HomeLayout = () => {
             <div className="main-content">
                <div className="card-container">
                   <CardItem />
+                  {/* <CardTest /> */}
                </div>
                <div className="list-container">
                   <ItemList />

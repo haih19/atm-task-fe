@@ -1,8 +1,8 @@
 import { Form, Input, Button, Typography } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.scss";
+import "./responsive.styles.scss";
 
 const { Title } = Typography;
 

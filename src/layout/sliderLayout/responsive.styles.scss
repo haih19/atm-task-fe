@@ -1,0 +1,40 @@
+//pc : width >= 1600px
+@media only screen and (min-width: 100em) {
+}
+
+//small pc 1024 - 1599
+@media only screen and (min-width: 64em) and (max-width: 99.9375em) {
+}
+
+//tablet: width >= 740px and width < 1023px
+@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+}
+
+//modile: 600px <= width < 739px
+@media only screen and (min-width: 37.5em) and (max-width: 46.1875em) {
+   .slider-layout {
+      padding: 0 30px;
+      .add-container {
+         width: inherit;
+         display: flex;
+         gap: 20px;
+      }
+      .logout-container {
+         width: inherit;
+         display: flex;
+         justify-content: flex-end;
+         gap: 20px;
+      }
+   }
+}
+
+//small mobile: width < 599px
+@media only screen and (max-width: 37.4375em) {
+   .slider-layout {
+      padding: 0 8px;
+      .add-container {
+      }
+      .logout-container {
+      }
+   }
+}

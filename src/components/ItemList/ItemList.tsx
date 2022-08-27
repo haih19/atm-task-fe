@@ -58,41 +58,31 @@ export const ItemList = () => {
    }, []);
 
    return (
-      <>
-         <Title style={{ textAlign: "left", padding: "8px 0 0 16px" }} level={4}>
-            Queue
-         </Title>
-         <div className="item-list" style={{ paddingBottom: "8px" }}>
-            <div
-               id="scrollableDiv"
-               style={{
-                  height: 400,
-                  overflow: "auto",
-                  padding: "0 16px",
-                  border: "1px solid rgba(140, 140, 140, 0.35)",
-               }}>
-               <InfiniteScroll
-                  dataLength={queueData.length}
-                  next={fetchQueues}
-                  hasMore={queueData.length < 50}
-                  loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-                  endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-                  scrollableTarget="scrollableDiv">
-                  <List
-                     dataSource={queueData}
-                     renderItem={(item, index) => (
-                        <List.Item key={index}>
-                           <List.Item.Meta
-                              avatar={<UserOutlined />}
-                              title={<a href="https://ant.design">{item.name}</a>}
-                              description={item.transaction}
-                           />
-                        </List.Item>
-                     )}
-                  />
-               </InfiniteScroll>
-            </div>
+      <div className="list-content">
+         <div className="list-title">
+            <Title level={4}>Queue</Title>
          </div>
-      </>
+         <div className="list-body">
+            {queueData &&
+               queueData.length > 0 &&
+               queueData.splice(0, 10).map((item, index) => {
+                  return (
+                     <div key={index} className="list-item">
+                        <div className="item-icon">
+                           <Avatar icon={<UserOutlined />} />
+                        </div>
+                        <div className="item-text">
+                           <div className="item-text-head">
+                              <Title level={5}>Transaction: {item.name}</Title>
+                           </div>
+                           <div className="item-text-body">
+                              <p>Amount: {item.transaction}</p>
+                           </div>
+                        </div>
+                     </div>
+                  );
+               })}
+         </div>
+      </div>
    );
 };

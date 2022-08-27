@@ -2,14 +2,17 @@
    display: flex;
    gap: 50px;
    width: 100%;
+   flex-direction: row;
    .card-item {
-      width: 24%;
+      width: 30%;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-shadow: 0 2px 8px 5px rgba(0, 0, 0, 0.3);
       .card-img {
          border-radius: 5px;
+         width: 100%;
          img {
+            width: 100%;
             border-radius: 5px;
          }
       }
@@ -24,8 +27,5 @@
             opacity: 0.3;
          }
       }
-   }
-   .card-item:hover {
-      cursor: pointer;
    }
 }
