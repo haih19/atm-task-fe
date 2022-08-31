@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export const AddTrans = () => {
-   const [isShowed, setIsShowed] = useState<boolean>(false);
+   // const [isShowed, setIsShowed] = useState<boolean>(false);
    const [clientName, setClientName] = useState<string>("");
    const [clientTransaction, setClientTransaction] = useState<string>("");
 

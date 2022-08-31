@@ -1,21 +1,19 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Divider, List, Skeleton, Typography } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useState, useEffect } from "react";
-
-import "./styles.scss";
-import axios from "axios";
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Typography } from 'antd';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getAtms } from '../../features/atm/atmSlice';
+import './styles.scss';
 
 const { Title } = Typography;
 
-interface IQueueData {
-   transaction: string;
-   name: string;
-}
 export const ItemList = () => {
    // const [loading, setLoading] = useState(false);
    // const [queueData, setData] = useState<DataType[]>([]);
-   const [queueData, setQueueData] = useState<IQueueData[]>([]);
+   // const [queueData, setQueueData] = useState<IQueueData[]>([]);
+   const dispatch = useAppDispatch();
+   const { res } = useAppSelector((state) => state.atms);
+
    // const loadMoreData = () => {
    //    if (loading) {
    //       return;
@@ -34,28 +32,35 @@ export const ItemList = () => {
    //       });
    // };
 
-   const accessToken = localStorage.getItem("accessToken");
-
-   const fetchQueues = async () => {
-      try {
-         let response = await axios.get("http://localhost:5001/api/v1/atms", {
-            headers: {
-               Authorization: accessToken as string,
-            },
-         });
-
-         setQueueData(response.data.queue);
-      } catch (err) {}
+   const headers = {
+      Authorization: localStorage.getItem('accessToken') as string,
    };
-
    useEffect(() => {
-      const t1 = setTimeout(() => {
-         fetchQueues();
-      }, 1000);
-      return () => {
-         clearTimeout(t1);
-      };
-   }, []);
+      dispatch(getAtms(headers));
+   }, [dispatch]);
+
+   // const accessToken = localStorage.getItem('accessToken');
+
+   // const fetchQueues = async () => {
+   //    try {
+   //       let response = await axios.get('http://localhost:5001/api/v1/atms', {
+   //          headers: {
+   //             Authorization: accessToken as string,
+   //          },
+   //       });
+
+   //       setQueueData(response.data.queue);
+   //    } catch (err) {}
+   // };
+
+   // useEffect(() => {
+   //    const t1 = setTimeout(() => {
+   //       fetchQueues();
+   //    }, 1000);
+   //    return () => {
+   //       clearTimeout(t1);
+   //    };
+   // }, []);
 
    return (
       <div className="list-content">
@@ -63,9 +68,8 @@ export const ItemList = () => {
             <Title level={4}>Queue</Title>
          </div>
          <div className="list-body">
-            {queueData &&
-               queueData.length > 0 &&
-               queueData.splice(0, 10).map((item, index) => {
+            {res.queue &&
+               res.queue.map((item, index) => {
                   return (
                      <div key={index} className="list-item">
                         <div className="item-icon">

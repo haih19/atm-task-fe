@@ -1,25 +1,44 @@
-import { Form, Input, Checkbox, Button, Typography } from "antd";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import "./styles.scss";
-import "./responsive.styles.scss";
+import { Form, Input, Checkbox, Button, Typography } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import './styles.scss';
+import './responsive.styles.scss';
+import { IUserInfo } from '../../../types/register/register.model';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { login } from '../../../features/login/loginSlice';
+import { useEffect } from 'react';
 
 const { Title } = Typography;
 
 export const LoginForm: React.FC = () => {
    const [form] = Form.useForm();
    const navigate = useNavigate();
+   const dispatch = useAppDispatch();
+   // const { isSigned } = useAppSelector((state) => state.login);
+   const { res } = useAppSelector((state) => state.login);
 
-   const onFinish = async (value: { email: string; password: string }) => {
-      try {
-         const response = await axios.post(
-            "http://localhost:5001/api/v1/auth/login",
-            value
-         );
-         localStorage.setItem("accessToken", response.data.PRIVATE_TOKEN);
+   const isCheck = Boolean(localStorage.getItem('accessToken'));
+   // const onFinish = async (value: { email: string; password: string }) => {
+   //    try {
+   //       const response = await axios.post(
+   //          "http://localhost:5001/api/v1/auth/login",
+   //          value
+   //       );
+   //       localStorage.setItem("accessToken", response.data.PRIVATE_TOKEN);
 
-         response.data.sign ? navigate("/") : alert("Wrong Email or password");
-      } catch (err) {}
+   //       response.data.sign ? navigate("/") : alert("Wrong Email or password");
+   //    } catch (err) {}
+   // };
+   useEffect(() => {
+      if (res.sign) {
+         localStorage.setItem('accessToken', res.PRIVATE_TOKEN);
+      }
+      if (isCheck) {
+         navigate('/');
+      }
+   }, [res.sign, isCheck]);
+
+   const onFinish = (value: IUserInfo) => {
+      dispatch(login(value));
    };
 
    const onFinishFailed = (errorInfo: any) => {};
@@ -27,7 +46,7 @@ export const LoginForm: React.FC = () => {
       <div>
          <div className="login-container">
             <Form
-               style={{ justifyContent: "center" }}
+               style={{ justifyContent: 'center' }}
                name="normal_login"
                className="login-form"
                form={form}
@@ -45,7 +64,7 @@ export const LoginForm: React.FC = () => {
                      {
                         // type: 'email',
                         required: true,
-                        message: "Please input your Email!",
+                        message: 'Please input your Email!',
                      },
                   ]}>
                   <Input placeholder="Email" />
@@ -55,7 +74,7 @@ export const LoginForm: React.FC = () => {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your password!",
+                        message: 'Please input your password!',
                      },
                   ]}
                   hasFeedback>
