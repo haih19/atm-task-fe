@@ -1,18 +1,12 @@
 import { Button, Modal, Input } from 'antd';
-import axios from 'axios';
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 import { addAtm } from '../../features/addAtm/addAtmSlice';
-interface IInput {
-   atmInput: string;
-}
 
 export const AddAtm = () => {
-   const [isShowed, setIsShowed] = useState(false);
    const [atmInput, setAtmInput] = useState('');
 
    const [isModalVisible, setIsModalVisible] = useState(false);
-   const accessToken = localStorage.getItem('accessToken');
 
    const dispatch = useAppDispatch();
 

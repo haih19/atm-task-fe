@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import './styles.scss';
 import './responsive.styles.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAtms } from '../../features/atm/atmSlice';
+import { getAtms, IAtmData } from '../../features/atm/atmSlice';
 import { deleteAtm } from '../../features/deleteAtm/deleteAtmSlice';
 const { Title } = Typography;
 
@@ -21,6 +21,7 @@ export const CardItem = () => {
 
    const dispatch = useAppDispatch();
    const { res } = useAppSelector((state) => state.atms);
+   const [atmData, setAtmData] = useState<IAtmData[]>();
 
    // useEffect(() => {
    //    // fetchAtms();
@@ -39,20 +40,18 @@ export const CardItem = () => {
    const dragItem = useRef<any>(null);
    const dragOverItem = useRef<any>(null);
 
-   // const handleSort = () => {
-   //    let atmDataCopy = [...atmData];
-   //    const draggedItemContent = atmDataCopy.splice(dragItem.current, 1)[0];
-   //    atmDataCopy.splice(dragOverItem.current, 0, draggedItemContent);
+   const handleSort = () => {
+      let atmDataCopy = [...res.atm];
+      const draggedItemContent = atmDataCopy.splice(dragItem.current, 1)[0];
+      atmDataCopy.splice(dragOverItem.current, 0, draggedItemContent);
 
-   //    dragItem.current = null;
-   //    dragOverItem.current = null;
+      dragItem.current = null;
+      dragOverItem.current = null;
 
-   //    setAtmData(atmDataCopy);
-   // };
+      setAtmData(atmDataCopy);
+   };
 
    const imgSrc = 'https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg';
-
-   const accessToken = localStorage.getItem('accessToken');
 
    // const fetchAtms = async () => {
    //    try {
@@ -103,7 +102,7 @@ export const CardItem = () => {
                      draggable
                      onDragStart={(e) => (dragItem.current = index)}
                      onDragEnter={(e) => (dragOverItem.current = index)}
-                     // onDragEnd={handleSort}
+                     onDragEnd={handleSort}
                      onDragOver={(e) => e.preventDefault()}
                      className="card-item">
                      <div className="card-img">
