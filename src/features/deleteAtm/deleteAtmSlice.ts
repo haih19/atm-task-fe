@@ -17,13 +17,13 @@ export const deleteAtm = createAsyncThunk('deleteAtm', async (id: string) => {
    return data;
 });
 
-export interface IInitialState {
+export interface deleteState {
    loading: boolean;
    success: boolean;
    error: string | null;
 }
 
-const initialState: IInitialState = {
+const initialState: deleteState = {
    loading: false,
    success: false,
    error: null,
@@ -32,20 +32,26 @@ const initialState: IInitialState = {
 export const deleteAtmSlice = createSlice({
    name: 'addAtm',
    initialState,
-   reducers: {},
+   reducers: {
+      resetDelete: (state: deleteState) => {
+         state.success = false;
+      },
+   },
    extraReducers: {
-      [deleteAtm.pending.toString()]: (state: IInitialState) => {
+      [deleteAtm.pending.toString()]: (state: deleteState) => {
          state.loading = true;
       },
-      [deleteAtm.fulfilled.toString()]: (state: IInitialState, action) => {
+      [deleteAtm.fulfilled.toString()]: (state: deleteState, action) => {
          state.loading = false;
          state.success = true;
       },
-      [deleteAtm.rejected.toString()]: (state: IInitialState) => {
+      [deleteAtm.rejected.toString()]: (state: deleteState) => {
          state.loading = false;
          state.success = false;
       },
    },
 });
+
+export const { resetDelete } = deleteAtmSlice.actions;
 
 export default deleteAtmSlice.reducer;

@@ -1,91 +1,26 @@
 import { Typography, Image, Button } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import './styles.scss';
 import './responsive.styles.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAtms, IAtmData } from '../../features/atm/atmSlice';
-import { deleteAtm } from '../../features/deleteAtm/deleteAtmSlice';
+import { getAtms } from '../../features/atm/atmSlice';
+import { deleteAtm, resetDelete } from '../../features/deleteAtm/deleteAtmSlice';
+import { resetAdd } from '../../features/addAtm/addAtmSlice';
 const { Title } = Typography;
 
-// interface IAtmData {
-//    client: string;
-//    id: string;
-//    name: string;
-//    remove: boolean;
-//    status: string;
-//    transaction: number;
-// }
-
 export const CardItem = () => {
-   const [loading, setLoading] = useState(false);
-
    const dispatch = useAppDispatch();
-   const { res } = useAppSelector((state) => state.atms);
-   const [atmData, setAtmData] = useState<IAtmData[]>();
+   const { res, success } = useAppSelector((state) => state.atms);
+   const { success: deleteAtmSuccess } = useAppSelector((state) => state.deleteAtm);
+   const { success: addAtmSuccess } = useAppSelector((state) => state.addAtm);
 
-   // useEffect(() => {
-   //    // fetchAtms();
-   // }, []);
-
-   // const reLoad = () => {
-   //    // fetchAtms();
-   // };
-   const headers = {
-      Authorization: localStorage.getItem('accessToken') as string,
-   };
    useEffect(() => {
-      dispatch(getAtms(headers));
-   }, [dispatch, res.atm]);
-
-   const dragItem = useRef<any>(null);
-   const dragOverItem = useRef<any>(null);
-
-   const handleSort = () => {
-      let atmDataCopy = [...res.atm];
-      const draggedItemContent = atmDataCopy.splice(dragItem.current, 1)[0];
-      atmDataCopy.splice(dragOverItem.current, 0, draggedItemContent);
-
-      dragItem.current = null;
-      dragOverItem.current = null;
-
-      setAtmData(atmDataCopy);
-   };
+      dispatch(getAtms());
+      dispatch(resetDelete());
+      dispatch(resetAdd());
+   }, [deleteAtmSuccess, addAtmSuccess]);
 
    const imgSrc = 'https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg';
-
-   // const fetchAtms = async () => {
-   //    try {
-   //       const response = await axios.get('http://localhost:5001/api/v1/atms', {
-   //          headers: {
-   //             Authorization: accessToken as string,
-   //          },
-   //       });
-   //       // console.log(response.data);
-   //       setAtmData(response.data.atm);
-   //    } catch (err) {}
-   // };
-
-   // const handleDeleteAtm = async (atm: IAtmData) => {
-   //    const params = {
-   //       atmId: atm.id,
-   //    };
-   //    try {
-   //       const response = await axios.delete(
-   //          `http://localhost:5001/api/v1/atms/${atm.id}`,
-
-   //          {
-   //             headers: {
-   //                Authorization: accessToken as string,
-   //             },
-   //          }
-   //       );
-   //       // reLoad();
-
-   //       setLoading(!loading);
-   //    } catch (error) {
-   //       console.log(error);
-   //    }
-   // };
 
    const handleDeleteAtm = (id: string) => {
       dispatch(deleteAtm(id));
@@ -97,32 +32,27 @@ export const CardItem = () => {
             res.atm.length > 0 &&
             res.atm.slice(0, 3).map((atm, index) => {
                return (
-                  <div
-                     key={index}
-                     draggable
-                     onDragStart={(e) => (dragItem.current = index)}
-                     onDragEnter={(e) => (dragOverItem.current = index)}
-                     onDragEnd={handleSort}
-                     onDragOver={(e) => e.preventDefault()}
-                     className="card-item">
-                     <div className="card-img">
-                        <Image src={imgSrc} />
-                     </div>
-                     <div className="card-content">
-                        <div className="card-title">
-                           <Title level={4}>{atm.name}</Title>
+                  <div key={index} id={atm.id} draggable="true" className="card-item">
+                     <div className="item-container">
+                        <div className="card-img">
+                           <Image src={imgSrc} />
                         </div>
-                        <div className="card-text">
-                           <div className="text-name">
-                              <p>Client's name: {atm.client}</p>
+                        <div className="card-content">
+                           <div className="card-title">
+                              <Title level={4}>{atm.name}</Title>
                            </div>
-                           <div className="text-trans">
-                              <p>Transaction status: {atm.status}</p>
+                           <div className="card-text">
+                              <div className="text-name">
+                                 <p>Client's name: {atm.client}</p>
+                              </div>
+                              <div className="text-trans">
+                                 <p>Transaction status: {atm.status}</p>
+                              </div>
                            </div>
+                           <Button onClick={() => handleDeleteAtm(atm.id)} danger>
+                              Delete Atm
+                           </Button>
                         </div>
-                        <Button onClick={() => handleDeleteAtm(atm.id)} danger>
-                           Delete Atm
-                        </Button>
                      </div>
                   </div>
                );

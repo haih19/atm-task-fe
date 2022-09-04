@@ -8,59 +8,12 @@ import './styles.scss';
 const { Title } = Typography;
 
 export const ItemList = () => {
-   // const [loading, setLoading] = useState(false);
-   // const [queueData, setData] = useState<DataType[]>([]);
-   // const [queueData, setQueueData] = useState<IQueueData[]>([]);
    const dispatch = useAppDispatch();
    const { res } = useAppSelector((state) => state.atms);
 
-   // const loadMoreData = () => {
-   //    if (loading) {
-   //       return;
-   //    }
-   //    setLoading(true);
-   //    fetch(
-   //       "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
-   //    )
-   //       .then((res) => res.json())
-   //       .then((body) => {
-   //          setData([...queueData, ...body.results]);
-   //          setLoading(false);
-   //       })
-   //       .catch(() => {
-   //          setLoading(false);
-   //       });
-   // };
-
-   const headers = {
-      Authorization: localStorage.getItem('accessToken') as string,
-   };
    useEffect(() => {
-      dispatch(getAtms(headers));
-   }, [dispatch]);
-
-   // const accessToken = localStorage.getItem('accessToken');
-
-   // const fetchQueues = async () => {
-   //    try {
-   //       let response = await axios.get('http://localhost:5001/api/v1/atms', {
-   //          headers: {
-   //             Authorization: accessToken as string,
-   //          },
-   //       });
-
-   //       setQueueData(response.data.queue);
-   //    } catch (err) {}
-   // };
-
-   // useEffect(() => {
-   //    const t1 = setTimeout(() => {
-   //       fetchQueues();
-   //    }, 1000);
-   //    return () => {
-   //       clearTimeout(t1);
-   //    };
-   // }, []);
+      dispatch(getAtms());
+   }, []);
 
    return (
       <div className="list-content">
@@ -69,7 +22,8 @@ export const ItemList = () => {
          </div>
          <div className="list-body">
             {res.queue &&
-               res.queue.map((item, index) => {
+               res.queue.length > 0 &&
+               res.queue.slice(0, 15).map((item, index) => {
                   return (
                      <div key={index} className="list-item">
                         <div className="item-icon">

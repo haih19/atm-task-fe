@@ -1,59 +1,40 @@
 import { Form, Input, Button, Typography } from 'antd';
-// import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import './responsive.styles.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../../features/regiter/registerSlice';
-import { AppDispatch, RootState } from '../../../app/store';
-import { toast } from 'react-toastify';
+import { register, resetIsRegisteredState } from '../../../features/regiter/registerSlice';
+import { RootState } from '../../../app/store';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { IUserInfo } from '../../../types/register/register.model';
 
 const { Title } = Typography;
 
 export const RegisterForm = () => {
+   const [form] = Form.useForm();
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   const { isRegistered } = useAppSelector((globalState: RootState) => globalState.register);
-   console.log(isRegistered);
+   let { isRegistered } = useAppSelector((globalState: RootState) => globalState.register);
 
-   // const onFinish = (value: { email: string; password: string; confirm: string }) => {
-   //    try {
-   //       axios.post("http://localhost:5001/api/v1/auth/register", value).then((response) => {
-   //          localStorage.setItem("registerToken", response.data.PRIVATE_TOKEN);
-
-   //          response.data.registered ? navigate("/login") : alert("Email already existed");
-   //       });
-   //    } catch (e) {}
-   // };
-
-   useEffect(() => {
-      if (isRegistered) {
-         toast.success('success!');
-         navigate('/login');
-      } else {
-         toast.error('error');
-      }
-   }, [isRegistered, navigate]);
-
-   const onFinish = (value: any) => {
+   const onFinish = (value: IUserInfo) => {
       delete value.confirm;
+      form.resetFields();
       dispatch(register(value));
    };
 
-   const onFinishFailed = (errorInfo: any) => {
-      console.log('Failed:', errorInfo);
-   };
+   useEffect(() => {
+      isRegistered && navigate('/login');
+      dispatch(resetIsRegisteredState());
+   }, [isRegistered]);
 
    return (
       <div className="register-container">
          <Form
+            form={form}
             style={{ justifyContent: 'center' }}
             name="normal_register"
             className="register-form"
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             initialValues={{
                remember: true,
             }}>

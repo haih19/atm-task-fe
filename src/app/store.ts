@@ -5,6 +5,7 @@ import getAtmsSlice from '../features/atm/atmSlice';
 import addAtmSlice from '../features/addAtm/addAtmSlice';
 import deleteAtmSlice from '../features/deleteAtm/deleteAtmSlice';
 import addTransactionSlice from '../features/addTransaction/addTransactionSlice';
+
 export const store = configureStore({
    reducer: {
       register: registerSlice,

@@ -1,10 +1,10 @@
-import { CardItem } from "../../components/Card/CardItem";
-import { CommentList } from "../../components/Comment/Comment";
-import { ItemList } from "../../components/ItemList/ItemList";
-import { SliderLayout } from "../sliderLayout";
+import { CardItem } from '../../components/Card/CardItem';
+import { CommentList } from '../../components/Comment/Comment';
+import { ItemList } from '../../components/ItemList/ItemList';
+import { SliderLayout } from '../sliderLayout';
 
-import "./styles.scss";
-import "./responsive.styles.scss";
+import './styles.scss';
+import './responsive.styles.scss';
 
 export const HomeLayout = () => {
    return (

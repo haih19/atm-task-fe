@@ -4,7 +4,7 @@ import './styles.scss';
 import './responsive.styles.scss';
 import { IUserInfo } from '../../../types/register/register.model';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { login } from '../../../features/login/loginSlice';
+import { login, resetIsLogged } from '../../../features/login/loginSlice';
 import { useEffect } from 'react';
 
 const { Title } = Typography;
@@ -13,33 +13,20 @@ export const LoginForm: React.FC = () => {
    const [form] = Form.useForm();
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
-   // const { isSigned } = useAppSelector((state) => state.login);
-   const { res } = useAppSelector((state) => state.login);
-
-   const isCheck = Boolean(localStorage.getItem('accessToken'));
-   // const onFinish = async (value: { email: string; password: string }) => {
-   //    try {
-   //       const response = await axios.post(
-   //          "http://localhost:5001/api/v1/auth/login",
-   //          value
-   //       );
-   //       localStorage.setItem("accessToken", response.data.PRIVATE_TOKEN);
-
-   //       response.data.sign ? navigate("/") : alert("Wrong Email or password");
-   //    } catch (err) {}
-   // };
-   useEffect(() => {
-      if (res.sign) {
-         localStorage.setItem('accessToken', res.PRIVATE_TOKEN);
-      }
-      if (isCheck) {
-         navigate('/');
-      }
-   }, [res.sign, isCheck]);
+   const { isLogged, token } = useAppSelector((state) => state.login);
 
    const onFinish = (value: IUserInfo) => {
+      form.resetFields();
       dispatch(login(value));
    };
+
+   useEffect(() => {
+      if (isLogged) {
+         localStorage.setItem('accessToken', token as string);
+         navigate('/');
+      }
+      dispatch(resetIsLogged());
+   }, [isLogged]);
 
    const onFinishFailed = (errorInfo: any) => {};
    return (

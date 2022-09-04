@@ -3,25 +3,29 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const addAtm = createAsyncThunk('addAtm', async (name: string) => {
-   const { data } = await axios.post(
-      'http://localhost:5001/api/v1/atms',
-      { name },
-      {
-         headers: {
-            Authorization: localStorage.getItem('accessToken') as string,
-         },
-      }
-   );
-   return data;
+   try {
+      const { data } = await axios.post(
+         'http://localhost:5001/api/v1/atms',
+         { name },
+         {
+            headers: {
+               Authorization: localStorage.getItem('accessToken') as string,
+            },
+         }
+      );
+      return data;
+   } catch (error) {
+      console.log(error);
+   }
 });
 
-export interface IInitialState {
+export interface addAtmState {
    loading: boolean;
    success: boolean;
    error: string | null;
 }
 
-const initialState: IInitialState = {
+const initialState: addAtmState = {
    loading: false,
    success: false,
    error: null,
@@ -30,20 +34,26 @@ const initialState: IInitialState = {
 export const addAtmSlice = createSlice({
    name: 'addAtm',
    initialState,
-   reducers: {},
+   reducers: {
+      resetAdd: (state: addAtmState) => {
+         state.success = false;
+      },
+   },
    extraReducers: {
-      [addAtm.pending.toString()]: (state: IInitialState) => {
+      [addAtm.pending.toString()]: (state: addAtmState) => {
          state.loading = true;
       },
-      [addAtm.fulfilled.toString()]: (state: IInitialState) => {
+      [addAtm.fulfilled.toString()]: (state: addAtmState) => {
          state.loading = false;
          state.success = true;
       },
-      [addAtm.rejected.toString()]: (state: IInitialState) => {
+      [addAtm.rejected.toString()]: (state: addAtmState) => {
          state.loading = false;
          state.success = false;
       },
    },
 });
+
+export const { resetAdd } = addAtmSlice.actions;
 
 export default addAtmSlice.reducer;
