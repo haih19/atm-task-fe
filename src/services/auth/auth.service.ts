@@ -1,6 +1,6 @@
-import { IUserInfo } from "./../../types/register/register.model";
-import { appApis } from "./../../constants/configs";
-import request from "../../utils/request";
+import { appApis } from './../../constants/configs';
+import request from '../../utils/request';
+import { IUserInfo } from '../../types/auth.model';
 
 const AuthServices = {
    async regiterAccount(params: IUserInfo): Promise<IUserInfo> {

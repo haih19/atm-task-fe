@@ -1,9 +1,9 @@
 import { Typography, Image, Button } from 'antd';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './styles.scss';
 import './responsive.styles.scss';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAtms } from '../../features/atm/atmSlice';
+import { getAtms, handleDrag } from '../../features/atm/atmSlice';
 import { deleteAtm, resetDelete } from '../../features/deleteAtm/deleteAtmSlice';
 import { resetAdd } from '../../features/addAtm/addAtmSlice';
 const { Title } = Typography;
@@ -11,28 +11,31 @@ const { Title } = Typography;
 export const CardItem = () => {
    const dispatch = useAppDispatch();
    const { res } = useAppSelector((state) => state.atms);
-   // const { success: deleteAtmSuccess } = useAppSelector((state) => state.deleteAtm);
-   // const { success: addAtmSuccess } = useAppSelector((state) => state.addAtm);
 
-   // const dragItem = React.useRef<any>(null);
-   // const dragOverItem = React.useRef<any>(null);
+   const dragItem = React.useRef<any>(null);
+   const dragOverItem = React.useRef<any>(null);
 
-   // const handleSort = () => {
-   //    let atmCopy = res.atm;
+   const handleSort = () => {
+      let atmCopy = [...res.atm];
 
-   //    const draggedItemContent = atmCopy.splice(dragItem.current, 1)[0];
+      const draggedItemContent = atmCopy.splice(dragItem.current, 1)[0];
 
-   //    atmCopy.splice(dragOverItem.current, 0, draggedItemContent);
+      atmCopy.splice(dragOverItem.current, 0, draggedItemContent);
 
-   //    dragItem.current = null;
-   //    dragOverItem.current = null;
-   // };
+      dragItem.current = null;
+      dragOverItem.current = null;
+
+      dispatch(handleDrag(atmCopy));
+   };
 
    useEffect(() => {
+      // setInterval(() => {
       dispatch(getAtms());
       dispatch(resetDelete());
       dispatch(resetAdd());
-   }, [res.atm, res.queue]);
+      // }, 3000);/
+      // }, [res.atm, res.queue]);
+   }, []);
 
    const imgSrc = 'https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg';
 
@@ -46,7 +49,15 @@ export const CardItem = () => {
             res.atm.length > 0 &&
             res.atm.slice(0, 3).map((atm, index) => {
                return (
-                  <div key={index} id={atm.id} draggable="true" className="card-item">
+                  <div
+                     key={index}
+                     draggable
+                     onDragStart={(e) => (dragItem.current = index)}
+                     onDragEnter={(e) => (dragOverItem.current = index)}
+                     onDragEnd={handleSort}
+                     onDragOver={(e) => e.preventDefault()}
+                     id={atm.id}
+                     className="card-item">
                      <div className="item-container">
                         <div className="card-img">
                            <Image src={imgSrc} />

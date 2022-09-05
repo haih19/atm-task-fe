@@ -1,8 +1,8 @@
-export interface IUsers {
-   id: string;
-   email: string;
-   password: string;
-}
+// export interface IUsers {
+//    id: string;
+//    email: string;
+//    password: string;
+// }
 
 export interface IRegiterReponse {
    message?: string;
@@ -21,4 +21,10 @@ export interface ILoginReponse {
    sign: boolean;
    user?: {};
    PRIVATE_TOKEN?: string;
+}
+
+export interface IUserInfo {
+   email: string;
+   password: string;
+   confirm?: string;
 }

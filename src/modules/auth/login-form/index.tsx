@@ -2,10 +2,10 @@ import { Form, Input, Checkbox, Button, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 import './responsive.styles.scss';
-import { IUserInfo } from '../../../types/register/register.model';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { login, resetIsLogged } from '../../../features/login/loginSlice';
 import { useEffect } from 'react';
+import { IUserInfo } from '../../../types/auth.model';
 
 const { Title } = Typography;
 

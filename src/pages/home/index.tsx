@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Header } from '../../layout/header';
 import { HomeLayout } from '../../layout/homeLayout';
 
@@ -9,7 +10,10 @@ export const HomePage = () => {
    //       if (performance.navigation.type !== 1) {
    //          localStorage.removeItem('accessToken');
    //       }
-   //       return;
+   //    });
+   //    window.addEventListener('beforeunload', () => {
+   //       localStorage.removeItem('accessToken');
+   //       alert('do you really want to close tab');
    //    });
    // }, [localStorage.getItem('accessToken')]);
 

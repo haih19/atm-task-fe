@@ -1,8 +1,7 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserInfo } from '../../types/register/register.model';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ILoginReponse } from '../../types/auth.model';
+import { ILoginReponse, IUserInfo } from '../../types/auth.model';
 import { toast } from 'react-toastify';
 
 export const login = createAsyncThunk('login', async (params: IUserInfo) => {
@@ -43,7 +42,6 @@ export const loginSlice = createSlice({
          state.token = action.payload.PRIVATE_TOKEN;
          if (action.payload.sign) {
             toast.success(action.payload.message);
-            // localStorage.setItem('accessToken', action.payload.PRIVATE_TOKEN as string);
          } else {
             toast.error(action.payload.message);
          }

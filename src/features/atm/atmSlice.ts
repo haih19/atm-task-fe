@@ -1,13 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-// export const getAtms = createAsyncThunk('getAtm', async () => {
-//    const { data } = await axios.get('http://localhost:5001/api/v1/atms', {
-//       headers: { Authorization: localStorage.getItem('accessToken') as string },
-//    });
-//    return data;
-// });
+import { IResGetAtm } from '../../types/atm.model';
 
 export const getAtms = createAsyncThunk('getAtm', async () => {
    const { data } = await axios.get('http://localhost:5001/api/v1/atms', {
@@ -16,41 +10,14 @@ export const getAtms = createAsyncThunk('getAtm', async () => {
    return data;
 });
 
-// export const getAtms = createAsyncThunk('getAtm', async (headers: { Authorization: string }) => {
-//    const { data } = await axios.get('http://localhost:5001/api/v1/atms', {
-//       headers,
-//    });
-//    return data;
-// });
-
-export interface IAtmData {
-   client: string;
-   id: string;
-   name: string;
-   remove: boolean;
-   status: string;
-   transaction: number;
-}
-
-export interface IQueue {
-   transaction: string;
-   name: string;
-}
-
-export interface IRes {
-   atm: IAtmData[];
-   queue: IQueue[];
-   processedClient: string;
-}
-
-export interface IInitialState {
+export interface atmState {
    loading: boolean;
    success: boolean;
-   res: IRes;
+   res: IResGetAtm;
    error: string | null;
 }
 
-const initialState: IInitialState = {
+const initialState: atmState = {
    loading: false,
    success: false,
    res: {
@@ -64,22 +31,28 @@ const initialState: IInitialState = {
 export const getAtmsSlice = createSlice({
    name: 'atms',
    initialState,
-   reducers: {},
+   reducers: {
+      handleDrag: (state: atmState, action) => {
+         state.res.atm = action.payload;
+      },
+   },
    extraReducers: {
-      [getAtms.pending.toString()]: (state: IInitialState) => {
+      [getAtms.pending.toString()]: (state: atmState) => {
          state.loading = true;
          state.success = false;
       },
-      [getAtms.fulfilled.toString()]: (state: IInitialState, action) => {
+      [getAtms.fulfilled.toString()]: (state: atmState, action) => {
          state.loading = false;
          state.res = action.payload;
          state.success = true;
       },
-      [getAtms.rejected.toString()]: (state: IInitialState) => {
+      [getAtms.rejected.toString()]: (state: atmState) => {
          state.loading = false;
          state.success = false;
       },
    },
 });
+
+export const { handleDrag } = getAtmsSlice.actions;
 
 export default getAtmsSlice.reducer;

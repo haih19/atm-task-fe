@@ -6,7 +6,7 @@ import { register, resetIsRegisteredState } from '../../../features/regiter/regi
 import { RootState } from '../../../app/store';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { IUserInfo } from '../../../types/register/register.model';
+import { IUserInfo } from '../../../types/auth.model';
 
 const { Title } = Typography;
 

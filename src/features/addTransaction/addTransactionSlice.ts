@@ -12,13 +12,13 @@ export const addTrans = createAsyncThunk('addTransaction', async (params: IParam
    return data;
 });
 
-export interface IInitialState {
+export interface addTransState {
    loading: boolean;
    success: boolean;
    error: string | null;
 }
 
-const initialState: IInitialState = {
+const initialState: addTransState = {
    loading: false,
    success: false,
    error: null,
@@ -29,14 +29,14 @@ export const addTransactionSlice = createSlice({
    initialState,
    reducers: {},
    extraReducers: {
-      [addTrans.pending.toString()]: (state: IInitialState) => {
+      [addTrans.pending.toString()]: (state: addTransState) => {
          state.loading = true;
       },
-      [addTrans.fulfilled.toString()]: (state: IInitialState) => {
+      [addTrans.fulfilled.toString()]: (state: addTransState) => {
          state.loading = false;
          state.success = true;
       },
-      [addTrans.rejected.toString()]: (state: IInitialState) => {
+      [addTrans.rejected.toString()]: (state: addTransState) => {
          state.loading = false;
          state.success = false;
       },

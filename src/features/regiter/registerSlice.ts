@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserInfo } from '../../types/register/register.model';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { IRegiterReponse } from '../../types/auth.model';
+import { IRegiterReponse, IUserInfo } from '../../types/auth.model';
 import { toast } from 'react-toastify';
 
 export const register = createAsyncThunk('registerThunk', async (params: IUserInfo) => {
@@ -10,12 +9,12 @@ export const register = createAsyncThunk('registerThunk', async (params: IUserIn
    return data;
 });
 
-export interface UserInfo {
+export interface registerState {
    loading: boolean;
    isRegistered: boolean;
 }
 
-const initialState: UserInfo = {
+const initialState: registerState = {
    loading: true,
    isRegistered: false,
 };
@@ -24,16 +23,16 @@ export const registerSlice = createSlice({
    name: 'register',
    initialState,
    reducers: {
-      resetIsRegisteredState: (state: UserInfo) => {
+      resetIsRegisteredState: (state: registerState) => {
          state.isRegistered = false;
       },
    },
    extraReducers: {
-      [register.pending.toString()]: (state: UserInfo) => {
+      [register.pending.toString()]: (state: registerState) => {
          state.loading = true;
       },
       [register.fulfilled.toString()]: (
-         state: UserInfo,
+         state: registerState,
          action: PayloadAction<IRegiterReponse>
       ) => {
          state.loading = false;
