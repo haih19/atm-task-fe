@@ -20,6 +20,7 @@ export const AddAtm = () => {
 
    const handleOk = () => {
       dispatch(addAtm(atmInput));
+      setAtmInput('');
       setIsModalVisible(false);
    };
 
@@ -33,7 +34,7 @@ export const AddAtm = () => {
             <Button onClick={showModal}>Add ATM</Button>
          </div>
          <Modal title="Add ATM" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Input placeholder="Add ATM" onChange={handleOnchangeInput} />
+            <Input placeholder="Add ATM" onChange={handleOnchangeInput} value={atmInput} />
          </Modal>
       </>
    );

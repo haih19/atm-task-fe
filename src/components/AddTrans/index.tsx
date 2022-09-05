@@ -30,13 +30,13 @@ export const AddTrans = () => {
 
    const handleOk = () => {
       dispatch(addTrans(params));
+      setNamePeople('');
+      setTransaction('');
       setIsModalVisible(false);
    };
 
    const handleCancel = () => {
       setIsModalVisible(false);
-      setNamePeople('');
-      setTransaction('');
    };
    return (
       <>
@@ -48,7 +48,7 @@ export const AddTrans = () => {
             <br />
             <br />
             <Input
-               // value={transaction}
+               value={transaction}
                placeholder="Transactions amount"
                onChange={onChangeClientTransaction}
             />
