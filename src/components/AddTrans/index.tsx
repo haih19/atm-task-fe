@@ -1,63 +1,42 @@
 import { Button, Input, Modal } from 'antd';
 import { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { addTrans, IParams } from '../../features/addTransaction/addTransactionSlice';
+import { addTrans } from '../../features/addTransaction/addTransactionSlice';
+import { IParamsAddTrans } from '../../types/atm.model';
 
 export const AddTrans = () => {
-   // const [isShowed, setIsShowed] = useState<boolean>(false);
-   const [clientName, setClientName] = useState<string>('');
-   const [clientTransaction, setClientTransaction] = useState<string>('');
+   const [namePeople, setNamePeople] = useState<string>();
+   const [transaction, setTransaction] = useState<string>('');
 
    const [isModalVisible, setIsModalVisible] = useState(false);
 
    const dispatch = useAppDispatch();
 
-   const onChangeClientName = (e: React.FormEvent<HTMLInputElement>) => {
-      setClientName(e.currentTarget.value);
+   const onChangenamePeople = (e: React.FormEvent<HTMLInputElement>) => {
+      setNamePeople(e.currentTarget.value);
    };
    const onChangeClientTransaction = (e: React.FormEvent<HTMLInputElement>) => {
-      setClientTransaction(e.currentTarget.value);
+      setTransaction(e.currentTarget.value);
    };
 
    const showModal = () => {
       setIsModalVisible(true);
    };
 
-   // const handleOk = async () => {
-   //    try {
-   //       const response = await axios.post(
-   //          "http://localhost:5001/api/v1/atms/people",
-   //          {
-   //             namePeople: clientName,
-   //             transaction: clientTransaction,
-   //          },
-   //          {
-   //             headers: {
-   //                Authorization: accessToken as string,
-   //             },
-   //          }
-   //       );
-   //       console.log(accessToken);
-
-   //       console.log(response);
-   //       setClientName("");
-   //       setClientTransaction("");
-   //    } catch (err) {}
-   //    setIsModalVisible(false);
-   // };
+   const params: IParamsAddTrans = {
+      namePeople,
+      transaction,
+   };
 
    const handleOk = () => {
-      const params: IParams = {
-         namePeople: clientName,
-         transaction: clientTransaction,
-      };
       dispatch(addTrans(params));
+      setIsModalVisible(false);
    };
 
    const handleCancel = () => {
       setIsModalVisible(false);
-      setClientName('');
-      setClientTransaction('');
+      setNamePeople('');
+      setTransaction('');
    };
    return (
       <>
@@ -65,11 +44,11 @@ export const AddTrans = () => {
             <Button onClick={showModal}>Add People</Button>
          </div>
          <Modal title="Add People" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Input value={clientName} placeholder="Client Name" onChange={onChangeClientName} />
+            <Input value={namePeople} placeholder="Client Name" onChange={onChangenamePeople} />
             <br />
             <br />
             <Input
-               // value={clientTransaction}
+               // value={transaction}
                placeholder="Transactions amount"
                onChange={onChangeClientTransaction}
             />

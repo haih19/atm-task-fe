@@ -10,15 +10,29 @@ const { Title } = Typography;
 
 export const CardItem = () => {
    const dispatch = useAppDispatch();
-   const { res, success } = useAppSelector((state) => state.atms);
-   const { success: deleteAtmSuccess } = useAppSelector((state) => state.deleteAtm);
-   const { success: addAtmSuccess } = useAppSelector((state) => state.addAtm);
+   const { res } = useAppSelector((state) => state.atms);
+   // const { success: deleteAtmSuccess } = useAppSelector((state) => state.deleteAtm);
+   // const { success: addAtmSuccess } = useAppSelector((state) => state.addAtm);
+
+   // const dragItem = React.useRef<any>(null);
+   // const dragOverItem = React.useRef<any>(null);
+
+   // const handleSort = () => {
+   //    let atmCopy = res.atm;
+
+   //    const draggedItemContent = atmCopy.splice(dragItem.current, 1)[0];
+
+   //    atmCopy.splice(dragOverItem.current, 0, draggedItemContent);
+
+   //    dragItem.current = null;
+   //    dragOverItem.current = null;
+   // };
 
    useEffect(() => {
       dispatch(getAtms());
       dispatch(resetDelete());
       dispatch(resetAdd());
-   }, [deleteAtmSuccess, addAtmSuccess]);
+   }, [res.atm, res.queue]);
 
    const imgSrc = 'https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg';
 
