@@ -12,6 +12,7 @@ export const LoginPage = () => {
          navigate('/login');
       }
    }, []); // eslint-disable-line no-use-before-define
+
    return (
       <div className="login">
          <div className="login-layout">

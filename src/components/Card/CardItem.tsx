@@ -36,7 +36,7 @@ export const CardItem = () => {
       dispatch(resetAdd());
       // }, 3000);/
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [res.atm, res.queue]); // eslint-disable-line no-use-before-define
+   }, [res.atm, res.queue]);
    // }, []);
 
    const handleDeleteAtm = (id: string) => {

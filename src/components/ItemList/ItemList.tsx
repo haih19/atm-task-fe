@@ -14,7 +14,7 @@ export const ItemList = () => {
    useEffect(() => {
       dispatch(getAtms());
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []); // eslint-disable-line no-use-before-define
+   }, []);
 
    return (
       <div className="list-content">
