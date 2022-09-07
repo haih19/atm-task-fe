@@ -26,7 +26,7 @@ export const LoginForm: React.FC = () => {
          navigate('/');
       }
       dispatch(resetIsLogged());
-   }, [isLogged, dispatch]);
+   }, [isLogged, dispatch]); // eslint-disable-line no-use-before-define
 
    const onFinishFailed = (errorInfo: any) => {};
    return (
