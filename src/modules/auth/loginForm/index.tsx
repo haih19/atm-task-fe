@@ -50,7 +50,7 @@ export const LoginForm: React.FC = () => {
                   name="email"
                   rules={[
                      {
-                        type: 'email',
+                        // type: 'email',
                         required: true,
                         message: 'Please input your Email!',
                      },

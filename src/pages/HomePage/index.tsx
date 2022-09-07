@@ -1,5 +1,5 @@
-import { Header } from '../../layout/header';
-import { HomeLayout } from '../../layout/homeLayout';
+import { Header } from '../../layout/Header';
+import { HomeLayout } from '../../layout/HomeLayout';
 
 import './styles.scss';
 

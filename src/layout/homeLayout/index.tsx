@@ -1,7 +1,7 @@
-import { CardItem } from '../../components/Card/CardItem';
-import { CommentList } from '../../components/Comment/Comment';
-import { ItemList } from '../../components/ItemList/ItemList';
-import { SliderLayout } from '../sliderLayout';
+import { CardItem } from '../../components/Card';
+import { ProcessedClient } from '../../components/ProcessedClient';
+import { ItemList } from '../../components/ItemList';
+import { SliderLayout } from '../SliderLayout';
 
 import './styles.scss';
 import './responsive.styles.scss';
@@ -21,7 +21,7 @@ export const HomeLayout = () => {
                </div>
             </div>
             <div className="cmt-container">
-               <CommentList />
+               <ProcessedClient />
             </div>
          </div>
       </div>

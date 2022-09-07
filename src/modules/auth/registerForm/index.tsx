@@ -46,7 +46,7 @@ export const RegisterForm = () => {
                name="email"
                rules={[
                   {
-                     type: 'email',
+                     // type: 'email',
                      required: true,
                      message: 'Please input your User email!',
                   },

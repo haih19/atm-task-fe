@@ -1,8 +1,7 @@
-import { RegisterPage } from '../pages/auth/register';
-import { LoginPage } from '../pages/auth/login';
-
+import { RegisterPage } from '../pages/AuthPage/RegisterPage';
+import { LoginPage } from '../pages/AuthPage/LoginPage';
 import { routesPath } from './routes.path';
-import { HomePage } from '../pages/home';
+import { HomePage } from '../pages/HomePage';
 import { RouteObject } from 'react-router-dom';
 import { PrivateRoute } from './private.routes';
 

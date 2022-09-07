@@ -1,12 +1,13 @@
 import { Typography, Image, Button } from 'antd';
 import React, { useEffect } from 'react';
-import './styles.scss';
-import './responsive.styles.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { getAtms, handleDrag } from '../../redux/features/atm/atmSlice';
 import { deleteAtm, resetDelete } from '../../redux/features/deleteAtm/deleteAtmSlice';
 import { resetAdd } from '../../redux/features/addAtm/addAtmSlice';
 import { CLOUDINARY_API } from '../../common/constants/configs';
+import './styles.scss';
+import './responsive.styles.scss';
+
 const { Title } = Typography;
 
 export const CardItem = () => {

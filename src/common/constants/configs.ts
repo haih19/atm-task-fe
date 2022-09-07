@@ -1,6 +1,6 @@
 export const SERVICE_API = 'http://localhost:5001';
 
-export const appApis = {
+export const APP_APIS = {
    AUTH: '/api/v1/auth',
    ATMS: '/api/v1/atms',
 };
@@ -11,8 +11,4 @@ export const CLOUDINARY_API =
 export const ADDRESS_ENDPOINT = {
    auth: '/api/v1/auth',
    atm: '/api/v1/atms',
-};
-
-export const headers = {
-   Authorization: localStorage.getItem('accessToken') as string,
 };
