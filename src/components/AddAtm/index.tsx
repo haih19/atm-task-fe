@@ -1,4 +1,4 @@
-import { Button, Modal, Input, Form } from 'antd';
+import { Button, Modal, Input } from 'antd';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../redux/app/hooks';
 import { addAtm } from '../../redux/features/addAtm/addAtmSlice';
