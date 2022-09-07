@@ -35,7 +35,7 @@ export const CardItem = () => {
       dispatch(resetDelete());
       dispatch(resetAdd());
       // }, 3000);/
-   }, [res.atm, res.queue]);
+   }, [res.atm, res.queue, dispatch]);
    // }, []);
 
    const handleDeleteAtm = (id: string) => {

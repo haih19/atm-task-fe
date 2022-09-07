@@ -13,7 +13,7 @@ export const ItemList = () => {
 
    useEffect(() => {
       dispatch(getAtms());
-   }, []);
+   }, [dispatch]);
 
    return (
       <div className="list-content">

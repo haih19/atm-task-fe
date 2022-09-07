@@ -26,7 +26,7 @@ export const LoginForm: React.FC = () => {
          navigate('/');
       }
       dispatch(resetIsLogged());
-   }, [isLogged]);
+   }, [isLogged, dispatch]);
 
    const onFinishFailed = (errorInfo: any) => {};
    return (
