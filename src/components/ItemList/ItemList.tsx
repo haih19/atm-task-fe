@@ -13,7 +13,8 @@ export const ItemList = () => {
 
    useEffect(() => {
       dispatch(getAtms());
-   }, [dispatch]); // eslint-disable-line no-use-before-define
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []); // eslint-disable-line no-use-before-define
 
    return (
       <div className="list-content">

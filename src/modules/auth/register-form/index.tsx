@@ -25,7 +25,7 @@ export const RegisterForm = () => {
    useEffect(() => {
       isRegistered && navigate('/login');
       dispatch(resetIsRegisteredState());
-   }, [isRegistered, dispatch, navigate]); // eslint-disable-line no-use-before-define
+   }, [isRegistered]); // eslint-disable-line no-use-before-define
 
    return (
       <div className="register-container">
