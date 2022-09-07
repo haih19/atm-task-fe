@@ -1,8 +1,8 @@
 import { Button, Input, Modal } from 'antd';
 import { useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
-import { addTrans } from '../../features/addTransaction/addTransactionSlice';
-import { IParamsAddTrans } from '../../types/atm.model';
+import { IParamsAddTrans } from '../../common/types/atm.model';
+import { useAppDispatch } from '../../redux/app/hooks';
+import { addTrans } from '../../redux/features/addTransaction/addTransactionSlice';
 
 export const AddTrans = () => {
    const [namePeople, setNamePeople] = useState<string>();
@@ -24,8 +24,8 @@ export const AddTrans = () => {
    };
 
    const params: IParamsAddTrans = {
-      namePeople,
-      transaction,
+      namePeople: namePeople as string,
+      transaction: transaction as string,
    };
 
    const handleOk = () => {

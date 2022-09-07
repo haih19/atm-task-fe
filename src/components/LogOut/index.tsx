@@ -1,8 +1,8 @@
-import { RightCircleOutlined, UserOutlined } from "@ant-design/icons";
-import { Typography, Tooltip } from "antd";
-import { useNavigate } from "react-router-dom";
+import { RightCircleOutlined } from '@ant-design/icons';
+import { Typography, Tooltip } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-import "./styles.scss";
+import './styles.scss';
 
 const { Title } = Typography;
 
@@ -19,8 +19,8 @@ export const LogOut = () => {
    const navigate = useNavigate();
 
    const handleOnclickLogout = () => {
-      localStorage.removeItem("accessToken");
-      navigate("/login");
+      localStorage.removeItem('accessToken');
+      navigate('/login');
    };
 
    return (

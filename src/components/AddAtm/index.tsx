@@ -1,7 +1,7 @@
 import { Button, Modal, Input, Form } from 'antd';
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
-import { addAtm } from '../../features/addAtm/addAtmSlice';
+import { useAppDispatch } from '../../redux/app/hooks';
+import { addAtm } from '../../redux/features/addAtm/addAtmSlice';
 
 export const AddAtm = () => {
    const [atmInput, setAtmInput] = useState('');

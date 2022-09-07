@@ -1,15 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { IParamsAddTrans } from '../../types/atm.model';
+import { IParamsAddTrans } from '../../../common/types/atm.model';
+import AtmServices from '../../../common/services/atm.service';
 
 export const addTrans = createAsyncThunk('addTransaction', async (params: IParamsAddTrans) => {
-   const { data } = await axios.post('http://localhost:5001/api/v1/atms/people', params, {
-      headers: {
-         Authorization: localStorage.getItem('accessToken') as string,
-      },
-   });
-   return data;
+   const response = await AtmServices.addATransaction(params);
+   return response;
 });
 
 export interface addTransState {

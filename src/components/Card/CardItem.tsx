@@ -2,10 +2,11 @@ import { Typography, Image, Button } from 'antd';
 import React, { useEffect } from 'react';
 import './styles.scss';
 import './responsive.styles.scss';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAtms, handleDrag } from '../../features/atm/atmSlice';
-import { deleteAtm, resetDelete } from '../../features/deleteAtm/deleteAtmSlice';
-import { resetAdd } from '../../features/addAtm/addAtmSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
+import { getAtms, handleDrag } from '../../redux/features/atm/atmSlice';
+import { deleteAtm, resetDelete } from '../../redux/features/deleteAtm/deleteAtmSlice';
+import { resetAdd } from '../../redux/features/addAtm/addAtmSlice';
+import { CLOUDINARY_API } from '../../common/constants/configs';
 const { Title } = Typography;
 
 export const CardItem = () => {
@@ -34,10 +35,8 @@ export const CardItem = () => {
       dispatch(resetDelete());
       dispatch(resetAdd());
       // }, 3000);/
-      // }, [res.atm, res.queue]);
-   }, []);
-
-   const imgSrc = 'https://res.cloudinary.com/dqvjijgb5/image/upload/v1661323143/atm/atm-card.jpg';
+   }, [res.atm, res.queue]);
+   // }, []);
 
    const handleDeleteAtm = (id: string) => {
       dispatch(deleteAtm(id));
@@ -60,7 +59,7 @@ export const CardItem = () => {
                      className="card-item">
                      <div className="item-container">
                         <div className="card-img">
-                           <Image src={imgSrc} />
+                           <Image src={CLOUDINARY_API} />
                         </div>
                         <div className="card-content">
                            <div className="card-title">

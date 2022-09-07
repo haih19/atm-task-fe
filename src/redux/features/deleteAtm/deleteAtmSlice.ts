@@ -1,20 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export interface IHeaders {
-   header: {
-      Authorization: string;
-   };
-}
+import AtmServices from '../../../common/services/atm.service';
 
 export const deleteAtm = createAsyncThunk('deleteAtm', async (id: string) => {
-   const { data } = await axios.delete(`http://localhost:5001/api/v1/atms/${id}`, {
-      headers: {
-         Authorization: localStorage.getItem('accessToken') as string,
-      },
-   });
-   return data;
+   const response = await AtmServices.deleteAtm(id);
+   return response;
 });
 
 export interface deleteAtmState {
@@ -44,6 +34,7 @@ export const deleteAtmSlice = createSlice({
       [deleteAtm.fulfilled.toString()]: (state: deleteAtmState, action) => {
          state.loading = false;
          state.success = true;
+         console.log(action.payload);
       },
       [deleteAtm.rejected.toString()]: (state: deleteAtmState) => {
          state.loading = false;

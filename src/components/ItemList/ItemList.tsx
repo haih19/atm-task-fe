@@ -1,8 +1,8 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Typography } from 'antd';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAtms } from '../../features/atm/atmSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
+import { getAtms } from '../../redux/features/atm/atmSlice';
 import './styles.scss';
 
 const { Title } = Typography;

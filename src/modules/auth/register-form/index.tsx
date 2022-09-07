@@ -1,12 +1,12 @@
 import { Form, Input, Button, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import { register, resetIsRegisteredState } from '../../../redux/features/regiter/registerSlice';
+import { RootState } from '../../../redux/app/store';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
+import { IUserInfo } from '../../../common/types/auth.model';
 import './styles.scss';
 import './responsive.styles.scss';
-import { register, resetIsRegisteredState } from '../../../features/regiter/registerSlice';
-import { RootState } from '../../../app/store';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { IUserInfo } from '../../../types/auth.model';
 
 const { Title } = Typography;
 
@@ -45,7 +45,7 @@ export const RegisterForm = () => {
                name="email"
                rules={[
                   {
-                     // type: 'email',
+                     type: 'email',
                      required: true,
                      message: 'Please input your User email!',
                   },

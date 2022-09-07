@@ -1,11 +1,11 @@
 import { Form, Input, Checkbox, Button, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hooks';
+import { login, resetIsLogged } from '../../../redux/features/login/loginSlice';
+import { useEffect } from 'react';
+import { IUserInfo } from '../../../common/types/auth.model';
 import './styles.scss';
 import './responsive.styles.scss';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { login, resetIsLogged } from '../../../features/login/loginSlice';
-import { useEffect } from 'react';
-import { IUserInfo } from '../../../types/auth.model';
 
 const { Title } = Typography;
 
@@ -49,7 +49,7 @@ export const LoginForm: React.FC = () => {
                   name="email"
                   rules={[
                      {
-                        // type: 'email',
+                        type: 'email',
                         required: true,
                         message: 'Please input your Email!',
                      },
@@ -71,9 +71,7 @@ export const LoginForm: React.FC = () => {
                   <Form.Item name="remember" valuePropName="checked" noStyle>
                      <Checkbox>Remember me</Checkbox>
                   </Form.Item>
-                  <a className="login-form-forgot" href="">
-                     Forgot password
-                  </a>
+                  <a className="login-form-forgot">Forgot password</a>
                </Form.Item>
                <Form.Item>
                   <Button type="primary" htmlType="submit" className="login-form-button">

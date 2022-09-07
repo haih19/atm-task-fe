@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { ILoginReponse, IUserInfo } from '../../types/auth.model';
+import { ILoginReponse, IUserInfo } from '../../../common/types/auth.model';
 import { toast } from 'react-toastify';
+import AuthServices from '../../../common/services/auth.service';
 
 export const login = createAsyncThunk('login', async (params: IUserInfo) => {
-   const { data } = await axios.post('http://localhost:5001/api/v1/auth/login', params);
-   return data;
+   const response = await AuthServices.loginAccount(params);
+   return response;
 });
 
 export interface LoginState {
